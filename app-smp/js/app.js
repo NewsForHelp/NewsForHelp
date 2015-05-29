@@ -1,7 +1,7 @@
 var server = null;
 var port = 80;
 var appRoot = './public';
-var status = true;
+var applianceStatus = null;
 //var statusDefualtImage = './img/pod_default.jpg';
 //var statusAlertImage = './img/pod_alert.jpg';
 var statusDefualtImage = './img/laundry_default.jpg';
@@ -10,11 +10,21 @@ var statusAlertImage = './img/laundry_alert.jpg';
 function init() {
     console.log("load start");
 
+    applianceStatus = new ApplianceStatus();
+
+    startServer();
+    
+    setStatusButtonAttribute();
+
+    console.log("load complete");
+}
+
+function startServer() {
     server = new HttpServer();
     server.get("/", appRoot);
     server.get("/xhr", function xhrres(req, res, oncomplete) {
         console.log(req);
-        var ret = status == "null" ? 'NG' : 'OK';
+        var ret = applianceStatus.isErrorStatus() ? 'NG' : 'OK';
         res.write(ret); // not send?
         oncomplete();
     });
@@ -24,23 +34,23 @@ function init() {
 
     console.log(msg);
 
-    document.getElementById("port").innerHTML=msg;
+    document.getElementById("port").innerHTML=msg;    
+}
 
+function setStatusButtonAttribute() {
     var statusButton = document.getElementById("status-button");
 
     statusButton.style.backgroundImage = "url(" + statusDefualtImage +")";
 
     statusButton.addEventListener("click", function (e) {
-        if (status == "null") {
+        if (applianceStatus.isErrorStatus()) {
             statusButton.style.backgroundImage = "url(" + statusDefualtImage +")";
-            status = true;
+            applianceStatus.setUsualStatus();
         } else {
             statusButton.style.backgroundImage = "url(" + statusAlertImage +")";
-            status = null;
+            applianceStatus.setErrorStatus();
         }
-    } , false );
-
-    console.log("load complete");
+    } , false );    
 }
 
 window.addEventListener('load', init);
