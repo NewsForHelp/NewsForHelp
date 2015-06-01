@@ -180,63 +180,72 @@ function sendXHR(ipaddress,idx) {
     console.log("XMLHttpRequest.send " + destination);
 }
 
+var runNotifNum = 0;
+
 /*
  * ニュース速報を出す.
  * @return num 鍋の場合1、洗濯機の場合2
  */
 function runNotification(num){
-    //チャイム音再生
-    //var oto = document.getElementById('sound-file');
     
-    var ado = new Audio('http://' + ipArray[num -1] + '/sounds/chime.mp3');
-    ado.loop = false;
-    ado.play();
+    if(num != runNotifNum){
     
-    //$("#sound-file").get(0).play();
+        //チャイム音再生
+        //var oto = document.getElementById('sound-file');
 
-    var textImage = "";
-    var bgImage = "";
-    //numによって画像差し替え
-    switch (num){
-        case 1:
-            textImage = "../images/text-pot.png";
-            bgImage = "../images/bg-pot.jpg"; 
-            break;
-        case 2:
-            textImage = "../images/text-laundry.png";
-            bgImage = "../images/bg-laundry.jpg"; 
-            break;
+        var ado = new Audio('http://' + ipArray[num -1] + '/sounds/chime.mp3');
+        ado.loop = false;
+        ado.play();
+
+        //$("#sound-file").get(0).play();
+
+        var textImage = "";
+        var bgImage = "";
+        //numによって画像差し替え
+        switch (num){
+            case 1:
+                textImage = "../images/text-pot.png";
+                bgImage = "../images/bg-pot.jpg"; 
+                break;
+            case 2:
+                textImage = "../images/text-laundry.png";
+                bgImage = "../images/bg-laundry.jpg"; 
+                break;
+        }
+
+        //速報タイトル
+        $("#news").css("background-image", "url('../images/title.png')");
+
+        //ニュース点滅
+        $("#news").animate({opacity:1}, {duration: 100})
+        .delay(1000)
+        .animate({opacity:0}, {duration: 100})
+        .delay(1000)
+        .animate({opacity:1}, {duration: 100})
+        .delay(1000)
+        .animate({opacity:0}, {duration: 100})
+        .delay(1000)
+        .animate({opacity:1}, {duration: 100})
+        .delay(2000)
+        .animate({opacity:1}, {duration: 100, complete:function(){ 
+            //テキスト差し替え
+            $("#news").css("background-image", "url(" + textImage + ")");
+            //背景差し替え
+            $("body").css("background-image", "url(" + bgImage + ")");
+            //2秒後に映像を縮小
+            setTimeout(function(){
+                if(timeLimit == 0){
+                    $("#video-area").addClass('scale-down'); 
+                    $("#video-area").removeClass('scale-up');
+                    //戻すタイミングを20秒追加
+                    timeLimit = timeLimit + 20;
+                }
+            },2000);
+        }})
+    
     }
-
-    //速報タイトル
-    $("#news").css("background-image", "url('../images/title.png')");
     
-    //ニュース点滅
-    $("#news").animate({opacity:1}, {duration: 100})
-    .delay(1000)
-    .animate({opacity:0}, {duration: 100})
-    .delay(1000)
-    .animate({opacity:1}, {duration: 100})
-    .delay(1000)
-    .animate({opacity:0}, {duration: 100})
-    .delay(1000)
-    .animate({opacity:1}, {duration: 100})
-    .delay(2000)
-    .animate({opacity:1}, {duration: 100, complete:function(){ 
-        //テキスト差し替え
-        $("#news").css("background-image", "url(" + textImage + ")");
-        //背景差し替え
-        $("body").css("background-image", "url(" + bgImage + ")");
-        //2秒後に映像を縮小
-        setTimeout(function(){
-            if(timeLimit == 0){
-                $("#video-area").addClass('scale-down'); 
-                $("#video-area").removeClass('scale-up');
-                //戻すタイミングを20秒追加
-                timeLimit = timeLimit + 20;
-            }
-        },2000);
-    }})
+    runNotifNum = num;
 
 }
 
@@ -254,6 +263,7 @@ function checkTimeOut(){
         $("#video-area").addClass('scale-up');
         //ニュース消す
         $("#news").css({opacity:0});
+        runNotifNum = 0;
         timeLimit --;
     }
 }
