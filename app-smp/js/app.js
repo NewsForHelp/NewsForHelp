@@ -2,8 +2,8 @@ var server = null;
 var port = 80;
 var appRoot = './public';
 var applianceStatus = null;
-var washerSetting = new ApplianceSetting('./img/laundry_default.jpg', './img/laundry_alert.jpg', '')
-var stoveSetting = new ApplianceSetting('./img/pod_default.jpg', './img/pod_alert.jpg', '')
+var washerSetting = new ApplianceSetting('./img/laundry_default.jpg', './img/laundry_alert.jpg', 'public/sounds/chime.mp3')
+var stoveSetting = new ApplianceSetting('./img/pod_default.jpg', './img/pod_alert.jpg', 'public/sounds/chime.mp3')
 
 // 洗濯機とコンロの切り替え
 var applianceSetting = washerSetting;
