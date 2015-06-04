@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--  This file should NOT be developped by partner -->
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="style/tv.css" />
+
+<script defer type="text/javascript" src="js/jquery-2.1.4.min.js" charset="utf-8"></script>
+<script defer type="text/javascript" src="js/util.js" charset="utf-8"></script>
+<script defer type="text/javascript" src="js/ipconfig.js" charset="utf-8"></script>
+    
+</head>
+<body>
+<div> </div>
+
+<div> 
+<div id="config-area">
+  <h1>家電IPアドレス設定画面</h1>
+  <div>
+    <h3>
+      ガスコンロ
+    </h3>
+    <input id="netAdr11" type="number" min="1" max="254">．<input id="netAdr12" type="number" min="1" max="254">．<input id="netAdr13" type="number" min="1" max="254">．<input id="netAdr14"  type="number" min="1" max="254">
+  </div>
+  <div>
+    <h3>
+      洗濯機
+    </h3>
+    <input id="netAdr21" type="number" min="1" max="254">．<input id="netAdr22" type="number" min="1" max="254">．<input id="netAdr23" type="number" min="1" max="254">．<input id="netAdr24"  type="number" min="1" max="254">
+  </div>
+  <div> </div>
+  <div>
+    <h3></h3>
+    <input id="loadIP" type="button" value="読込" >
+    <input id="saveIP" type="button" value="保存" >
+  </div>
+</div>
+</div>
+<audio id="sound-file" preload="auto">
+    <source src="sounds/chime.ogg" type="audio/ogg">
+</audio>
+</body>
+</html>

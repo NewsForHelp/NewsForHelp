@@ -3,7 +3,7 @@
   "description": "お手伝い速報",
   "version": "1",
   "type": "privileged",
-  "launch_path": "/index.html",
+  "launch_path": "/index2.html",
   "icons": {
     "128": "/style/icons/icon.png",    
     "160": "/style/icons/icon.png",
