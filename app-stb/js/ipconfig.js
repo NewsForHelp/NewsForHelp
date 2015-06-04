@@ -28,38 +28,36 @@ function checkNumeric(value) {
 //有効なIPアドレスかどうかチェックします。
 //@return 255以下の場合は true を返します。
 function checkIP(value){
-  if(checkNumeric(value)){
-    if(value > 254){
+  if(value > 254){
     return false;
-    }
   }
 }
 
 //入力されたIPアドレスを画面に表示します
 function loadIPAddress(){
-  for(var y=0;x<3;x++){
-    var idx=x+''+y+'';
-    var setIPAddress ='';
-    for(var x=0;x<5;x++){
-      var ipItem = document.getElementById("netAdr"+idx);
-      ipItem.value = "";
+  for(var y=0;y<3;y++){
+    for(var x=0;x<itemXIP.lenght;x++){
+      var idx=x+''+y+'';
+      var itemXIP=ipArray[y].split('.');
+      ipItem.value = itemXIP[x];
     }
+    
+  }
 }
 
 //入力されたIPアドレスを保存します
 function saveIPAddress(){
-  for(var y=0;x<3;x++){
-    var idx=x+''+y+'';
+  for(var y=0;y<3;y++){
     var setIPAddress ='';
     for(var x=0;x<5;x++){
+      var idx=x+''+y+'';
       var ipItem = document.getElementById("netAdr"+idx);
-      if(ipItem){
       if (ipItem == "") {
         alert('IPが不正です');
         return false;
-      } else {
-        if(checkIP(ipItem){
-          setIPAddress=setIPAddress+ipItem;
+      }else{
+        if(checkIP(ipItem)){
+          setIPAddress=setIPAddress+'.'+ipItem;
         }else{
           alert('IPが不正です');
         }
@@ -69,8 +67,8 @@ function saveIPAddress(){
   }
   ipArray = IPAddressList;
   setIPAddress(IPAddressList);
-}
-
+}  
+  
 //画面遷移用
 function closeConfig(){
   //removeClass Config               
@@ -84,19 +82,13 @@ function openConfig(){
   $("#video-area").addClass("hideDiv");
   $("#config-area").removeClass("hideDiv");
 }
-                             
-
-$(document).ready(function(){
   
+$(document).ready(function(){
   var sv = document.getElementById("saveIP");
   sv.addEventListener("click", saveIPAddress, false);
 
   var ld = document.getElementById("loadIP");
-  ld.addEventListener("click", getIPAddress, false);
-  
-  
-  
-  
+  ld.addEventListener("click", loadIPAddress, false);
 });
-
+  
   
