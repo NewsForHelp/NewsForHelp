@@ -45,17 +45,22 @@ function checkIP(value){
 
 //入力されたIPアドレスを画面に表示します
 function loadIPAddress(){
-  var itemXIP=getIPAddress();
-  if(itemXIP.length==0){
+
+  //ローカルストレージよりデータ取得
+  var ipJOSN=getIPAddress();
+  //JSON形式なので、parseして配列に戻す
+  var itemXIP = JSON.parse(ipJOSN);
+
+  if(itemXIP == null || itemXIP.length == 0){
     itemXIP=ipArray;
   }
 
   for(var y=1;y<3;y++){
-    for(var x=1;x<itemXIP.lenght;x++){
+    for(var x=1;x<5;x++){
       var idx=y+''+x+'';
       var ipItem = document.getElementById("netAdr"+idx);
-      var itemXIP=ipArray[y-1].split('.');
-      ipItem.value = itemXIP[x-1];
+      var separateXIP=itemXIP[y-1].split('.');
+      ipItem.value = separateXIP[x-1];
     }
     
   }
@@ -116,14 +121,7 @@ $(document).ready(function(){
   var ld = document.getElementById("loadIP");
   ld.addEventListener("click", loadIPAddress, false);
   
-  var ipArrayTest=getIPAddress();
-  var hihyouji = JSON.parse(ipArrayTest);
-
-  if(hihyouji == null || hihyouji.length == 0){
-  } else {
-    loadIPAddress();
-  }
-
+   loadIPAddress();
 });
   
   
