@@ -90,19 +90,22 @@ opacity:0;
   visibility:hidden;  
 }
 
-input {
-  width: 50px;
-}
+
 .configImage{
   width: 30%;
   height: 30%;
 }
 
 #config-area{
-    background-color: #333333;
+    z-index: 6;
+    position: absolute;
+    top: 0;
+    left:0;
+    background-color: rgba(0, 0, 0, 0.7);
     color: #ffffff;
-    margin: 100px;
+    margin: 20px;
     padding: 20px;
+    
 }
 
 #config-area h1{
@@ -111,6 +114,15 @@ input {
 }
 
 #config-area input{
-    margin-right: 10px;
-    padding: 10px;
+    font-size: 120%;
+	margin: 2;
+	padding: 10px;
+	background: none;
+	border: none;
+	border-radius: 0;
+	/*outline: none;*/
+    color: #ffffff;
 }
+
+
+
