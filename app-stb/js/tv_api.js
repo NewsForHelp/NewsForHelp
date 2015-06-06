@@ -20,7 +20,7 @@ $(function(){
     }
 
     window.onload = function() {
-           var tv = window.navigator.tv;
+       var tv = window.navigator.tv;
         video = document.getElementById('tv');
 
         if (!tv) {
@@ -57,8 +57,6 @@ $(function(){
 
                       currentChannel.getCurrentProgram().then(function onsuccess(program) {
                            createChannelProgramBanner(currentChannel, program);
-                           //poringDevice();
-                           //sendXHR(ipArray[0],0);
                       }, function onerror(error) {
                            errlog ('getCurrentProgram() error');
                       });
@@ -78,8 +76,6 @@ $(function(){
     function KeyDownFunc(event) { 
 
         var key = event.keyCode;
-        //dbglog('kc = ' + key);
-
         var channelList_index = 0;
 
         switch(key) {
@@ -139,6 +135,21 @@ $(function(){
            TvSetFrameSize(0.5); 
            return;
            break;
+//------- STB画面用コード -------
+//※あくまでも暫定記述
+        case KeyEvent.DOM_VK_PAGE_UP:
+           //removeClass STB               
+           $("#video-area").addClass("hideDiv");
+           $("#config-area").removeClass("hideDiv");
+           return;
+           break;
+        case KeyEvent.DOM_VK_PAGE_DOWN:
+           //removeClass Config               
+           $("#video-area").removeClass("hideDiv");
+           $("#config-area").addClass("hideDiv");
+           return;
+           break;
+//------- STB画面用コード -------
         default:
            errlog('no key action');
            return;  // return
@@ -156,78 +167,4 @@ $(function(){
              errlog ('getCurrentProgram() error');
         });
     }
-
-    //XXX デバック用
-    //runNotification(1);
-    
-    /*
-     * ニュース速報を出す.
-     * @return num 鍋の場合1、洗濯機の場合2
-     */
-    /*
-    function runNotification(num){
-        //チャイム音再生
-        $("#sound-file").get(0).play();
-        
-        var textImage = "";
-        var bgImage = "";
-        //numによって画像差し替え
-        switch (num){
-          case 1:
-            textImage = "../images/text-pot.png";
-            bgImage = "../images/bg-pot.jpg"; 
-            break;
-          case 2:
-            textImage = "../images/text-laundry.png";
-            bgImage = "../images/bg-laundry.jpg"; 
-            break;
-        }
-        
-        //ニュース点滅
-        $("#news").animate({opacity:1}, {duration: 100})
-        .delay(1000)
-        .animate({opacity:0}, {duration: 100})
-        .delay(1000)
-        .animate({opacity:1}, {duration: 100})
-        .delay(1000)
-        .animate({opacity:0}, {duration: 100})
-        .delay(1000)
-        .animate({opacity:1}, {duration: 100})
-        .delay(2000)
-        .animate({opacity:1}, {duration: 100, complete:function(){ 
-            //テキスト差し替え
-            $("#news").css("background-image", "url(" + textImage + ")");
-            //背景差し替え
-            $("body").css("background-image", "url(" + bgImage + ")");
-            //2秒後に映像を縮小
-            setTimeout(function(){
-                if(timeLimit == 0){
-                    $("#video-area").addClass('scale-down'); 
-                    $("#video-area").removeClass('scale-up');
-                    //戻すタイミングを20秒追加
-                    timeLimit = timeLimit + 20;
-                }
-            },2000);
-        }})
-        
-    }
-    
-    //毎秒戻すタイミングをチェック
-    setInterval(checkTimeOut,1000);
-    
-    var timeLimit = 0;
-    
-    function checkTimeOut(){
-        if(timeLimit > 1){
-            timeLimit --;
-        }else if(timeLimit == 1){
-            //映像拡大
-            $("#video-area").removeClass('scale-down');
-            $("#video-area").addClass('scale-up');
-            //ニュース消す
-            $("#news").css({opacity:0});
-            timeLimit --;
-        }
-    }
-  */  
 });

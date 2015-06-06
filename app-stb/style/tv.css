@@ -84,3 +84,15 @@ opacity:0;
   line-height: 150%;
   z-index: 1000;
 }
+
+.hideDiv{
+  visibility:hidden;  
+}
+
+input {
+  width: 50px;
+}
+.configImage{
+  width: 30%;
+  height: 30%;
+}
