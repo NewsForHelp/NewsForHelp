@@ -1,5 +1,5 @@
 var server = null;
-var port = 80;
+var port = 8080;
 var appRoot = './public';
 var applianceStatus = null;
 var ngSound = null;
