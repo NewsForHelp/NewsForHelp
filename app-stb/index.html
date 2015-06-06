@@ -9,6 +9,7 @@
     
 <script defer type="text/javascript" src="js/util.js" charset="utf-8"></script>
 <script defer type="text/javascript" src="js/tv_api.js" charset="utf-8"></script>
+ <script defer type="text/javascript" src="js/ipconfig.js" charset="utf-8"></script>
 
 <!--    <script defer type="text/javascript" src="js/answer/util.js" charset="utf-8"></script> -->
 <!--    <script defer type="text/javascript" src="js/answer/tv_api1.js" charset="utf-8"></script> -->
@@ -25,7 +26,29 @@
     <div id="news"></div>
   <video id="tv" autoplay></video>
 </div>
-<div> </div>
+
+<div id="config-area">
+  <h1>家電IPアドレス設定画面</h1>
+  <div>
+    <h3>
+      ガスコンロ
+    </h3>
+    <input id="netAdr11" type="number" min="1" max="254">．<input id="netAdr12" type="number" min="1" max="254">．<input id="netAdr13" type="number" min="1" max="254">．<input id="netAdr14"  type="number" min="1" max="254">
+  </div>
+  <div>
+    <h3>
+      洗濯機
+    </h3>
+    <input id="netAdr21" type="number" min="1" max="254">．<input id="netAdr22" type="number" min="1" max="254">．<input id="netAdr23" type="number" min="1" max="254">．<input id="netAdr24"  type="number" min="1" max="254">
+  </div>
+  <div> </div>
+  <div>
+    <h3></h3>
+    <input id="loadIP" type="button" value="読込" >
+    <input id="saveIP" type="button" value="保存" >
+  </div>
+</div>
+    
 <audio id="sound-file" preload="auto">
     <source src="sounds/chime.ogg" type="audio/ogg">
 </audio>

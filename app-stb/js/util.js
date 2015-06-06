@@ -3,9 +3,10 @@
 
 'use strict';
 
-var ipArray = ['192.168.109.36','192.168.109.85'];
+var ipArray = ['10.11.12.152','10.11.12.153'];
 var PORING_TIME_CYCLE = 5000;
 var intervalID;
+var POST_PORT_NO='8080';
 
 function dbglog(msg) {
     console.log ('>>> ' + msg + '\n');
@@ -136,7 +137,7 @@ function createChannelBannerDummy(idx)
 */
 function sendXHR(ipaddress,idx) {
 
-    var destination = "http://" + ipaddress + "/xhr?power=1",
+    var destination = "http://" + ipaddress + ":" + POST_PORT_NO +"/xhr?power=1",
         //{mozSystem: true}というオブジェクトを渡さないとクロスドメインで怒られる
         xhr = new XMLHttpRequest({mozSystem: true});
 
@@ -193,7 +194,7 @@ function runNotification(num){
         //チャイム音再生
         //var oto = document.getElementById('sound-file');
 
-        var ado = new Audio('http://' + ipArray[num -1] + '/sounds/chime.mp3');
+        var ado = new Audio('http://' + ipArray[num -1] + ":" + POST_PORT_NO + '/sounds/chime.mp3');
         ado.loop = false;
         ado.play();
 

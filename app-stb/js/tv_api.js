@@ -139,13 +139,11 @@ $(function(){
 //※あくまでも暫定記述
         case KeyEvent.DOM_VK_PAGE_UP:
            //removeClass STB               
-           $("#video-area").addClass("hideDiv");
            $("#config-area").removeClass("hideDiv");
            return;
            break;
         case KeyEvent.DOM_VK_PAGE_DOWN:
            //removeClass Config               
-           $("#video-area").removeClass("hideDiv");
            $("#config-area").addClass("hideDiv");
            return;
            break;

@@ -45,6 +45,7 @@ function checkIP(value){
 
 //入力されたIPアドレスを画面に表示します
 function loadIPAddress(){
+    console.log("loadIPAddress");
 
   //ローカルストレージよりデータ取得
   var ipJOSN=getIPAddress();
@@ -52,6 +53,7 @@ function loadIPAddress(){
   var itemXIP = JSON.parse(ipJOSN);
 
   if(itemXIP == null || itemXIP.length == 0){
+      console.log("itemXIP = null");
     itemXIP=ipArray;
   }
 
@@ -98,19 +100,20 @@ function saveIPAddress(){
     ipArray = configIPAddressList;
     setIPAddress(JSON.stringify(configIPAddressList));
   }
+    console.log("saveIPAddress");
+    closeConfig();
 }  
   
 //画面遷移用
 function closeConfig(){
   //removeClass Config               
-  $("#video-area").removeClass("hideDiv");
   $("#config-area").addClass("hideDiv");
+    console.log("closeConfig");
 }
 
 //画面遷移用
 function openConfig(){
   //removeClass Config               
-  $("#video-area").addClass("hideDiv");
   $("#config-area").removeClass("hideDiv");
 }
   
