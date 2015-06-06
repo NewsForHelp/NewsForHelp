@@ -2,12 +2,13 @@ var server = null;
 var port = 80;
 var appRoot = './public';
 var applianceStatus = null;
+var ngSound = null;
 var washerSetting = new ApplianceSetting('./img/laundry_default.jpg', './img/laundry_alert.jpg', 'sounds/laundry_alert_sound.mp3')
 var stoveSetting = new ApplianceSetting('./img/pod_default.jpg', './img/pod_alert.jpg', 'sounds/pod_alert_sound.mp3')
 
 // 洗濯機とコンロの切り替え
-//var applianceSetting = washerSetting;
-var applianceSetting = stoveSetting;
+var applianceSetting = washerSetting;
+//var applianceSetting = stoveSetting;
 
 function init() {
     console.log("load start");
@@ -47,20 +48,34 @@ function setStatusButtonAttribute() {
     statusButton.addEventListener("click", function (e) {
         if (applianceStatus.isErrorStatus()) {
             statusButton.style.backgroundImage = "url(" + applianceSetting.getStatusDefualtImage() +")";
+
+            pauseSound();
+
             applianceStatus.setUsualStatus();
         } else {
             statusButton.style.backgroundImage = "url(" + applianceSetting.getStatusAlertImage() +")";
 
             var soundFile = applianceSetting.getSoundFile();
             if(soundFile != null && soundFile != '' ) {
-                var sound = new Audio(soundFile);
-                sound.loop = false;
-                sound.play();
+                playSound(soundFile);
             }
 
             applianceStatus.setErrorStatus();
         }
     } , false );
+}
+
+function playSound(soundFile) {
+    ngSound = new Audio(soundFile);
+    ngSound.loop = false;
+    ngSound.play();
+}
+
+function pauseSound() {
+    if(ngSound != null) {
+        ngSound.pause();
+        ngSound = null;
+    }
 }
 
 window.addEventListener('load', init);
